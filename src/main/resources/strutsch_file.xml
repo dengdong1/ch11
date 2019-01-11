@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+    <!--该常量用来控制此次上传图片请求的总大小-->
+    <constant name="struts.multipart.maxSize" value="2097152"/>
+    <package name="fileupload" namespace="/" extends="struts-default">
+
+        <action name="upload" method="upload" class="cn.intro.action.UploadAction">
+            <param name="savePath">/upload</param>
+            <result name="success">/fileUpload/upload.jsp</result>
+            <result name="input">/fileUpload/upload.jsp</result>
+            <interceptor-ref name="fileUpload">
+                <!--设置单个文件的大小 byte -->
+                <param name="maximumSize">4024000</param>
+                <!--设置上传文件的后缀 -->
+                <param name="allowedTypes">image/jpeg,image/gif</param>
+            </interceptor-ref>
+            <!--切记添加默认的拦截器 -->
+            <interceptor-ref name="defaultStack"/>
+        </action>
+
+        <action name="uploadArray" method="uploadArray" class="cn.intro.action.UploadAction">
+            <param name="savePath">/upload</param>
+            <result name="success">/fileUpload/uploadArray.jsp</result>
+            <result name="input">/fileUpload/uploadArray.jsp</result>
+            <interceptor-ref name="fileUpload">
+                <!--设置单个文件的大小 byte -->
+                <param name="maximumSize">1024000</param>
+                <!--设置上传文件的后缀 -->
+                <param name="allowedTypes">image/jpeg,image/gif</param>
+            </interceptor-ref>
+            <!--切记添加默认的拦截器 -->
+            <interceptor-ref name="defaultStack"/>
+        </action>
+
+
+        <action name="download" method="download" class="cn.intro.action.DownLoadAction">
+            <!--配置文件下载的路径 -->
+            <param name="inputPath">/upload</param>
+            <result type="stream">
+                <!--文件下载的类型 -->
+                <param name="contentType">application/octet-stream</param>
+                <!--文件下载的输入流名称,该输入在action设置-->
+                <param name="inputName">inputStream</param>
+                <!--提示用户是打开还是下载    filename=${fileName} 用户下载的文件名称-->
+                <!-- ${fileName}  在action中配置 -->
+                <param name="contentDisposition">attachment;filename=${fileName}</param>
+                <!--文件下载缓冲区大小 -->
+                <param name="bufferSize">4096</param>
+            </result>
+        </action>
+
+    </package>
+</struts>

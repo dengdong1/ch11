@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+	<class name="cn.intro.entity.Users" table="`USERS`" dynamic-update="true">
+		<id name="id" column="`ID`" type="java.lang.Integer">
+			<generator class="increment" />
+		</id>
+		<property name="name" type="java.lang.String" column="NAME"/>
+		<property name="password" type="java.lang.String" column="`PASSWORD`"/>
+		<property name="telephone" type="java.lang.String" column="`TELEPHONE`"/>
+		<property name="username" type="java.lang.String" column="`USERNAME`"/>
+		<property name="isadmin" type="java.lang.String" column="`ISADMIN`"/>
+	</class>
+</hibernate-mapping>

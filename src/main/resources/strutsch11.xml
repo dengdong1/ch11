@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+    <package name="interceptor" namespace="/interceptor" extends="struts-default">
+        <interceptors>
+            <interceptor name="sessionInterceptor" class="cn.intro.interceptor.SessionInterceptor"/>
+            <interceptor name="myInterceptor" class="cn.intro.interceptor.MyTimerInterceptor"/>
+            <interceptor-stack name="myStack">
+                <interceptor-ref name="myInterceptor"></interceptor-ref>
+                <interceptor-ref name="defaultStack"></interceptor-ref>
+                <interceptor-ref name="sessionInterceptor"></interceptor-ref>
+            </interceptor-stack>
+        </interceptors>
+        <!--如果定义了这些拦截栈，就定义这个默认的拦截，它的name值为=“myStack” -->
+        <default-interceptor-ref name="myStack"/>
+
+        <action name="myInvocation" method="myInvocation" class="cn.intro.action.InterceptorAction">
+            <result name="myInvocation">/interceptor/myInvocation.jsp</result>
+        </action>
+        <action name="login" method="login" class="cn.intro.action.InterceptorAction">
+            <result name="input">/interceptor/input.jsp</result>
+            <result name="success">/interceptor/success.jsp</result>
+        </action>
+    </package>
+</struts>
